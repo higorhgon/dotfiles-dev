@@ -8,7 +8,7 @@ sudo -E bash nodesource_setup.sh
 
 # Instala dependências
 sudo apt update
-sudo apt install build-essential cmake libreadline-dev stow nodejs
+sudo apt install -y build-essential cmake libreadline-dev stow nodejs gettext
 
 cd ~
 
