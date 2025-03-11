@@ -1,6 +1,27 @@
 return {
 	{
 		"mg979/vim-visual-multi",
+		init = function()
+			vim.g.VM_set_default_mappings = 0 -- Disable default keybinds
+		end,
+		config = function()
+			-- Delete lingering default keybinds
+			vim.keymap.del("n", "<C-Up>")
+			vim.keymap.del("n", "<C-Down>")
+			vim.keymap.del({ "n", "x" }, "<C-n>")
+
+			-- Normal mode mappings
+			vim.keymap.set("n", "<M-n>", "<Plug>(VM-Find-Under)")
+			vim.keymap.set("n", "<M-Up>", "<Plug>(VM-Add-Cursor-Up)")
+			vim.keymap.set("n", "<M-Down>", "<Plug>(VM-Add-Cursor-Down)")
+
+			-- Visual mode mappings
+			vim.keymap.set("x", "<M-n>", "<Plug>(VM-Find-Under)")
+
+			-- Your custom keymaps
+			vim.keymap.set("n", "<leader>mc", "<Plug>(VM-Find-Under)", { desc = "Multi-Cursor" })
+			vim.keymap.set("n", "<leader>ma", "<Plug>(VM-Select-All)", { desc = "Select All Occurrences" })
+		end,
 	},
 	{ -- Autoformat
 		"stevearc/conform.nvim",
@@ -16,24 +37,9 @@ return {
 				desc = "Document Auto Format (Formatter)",
 			},
 		},
+		-- optional = true,
 		opts = {
 			notify_on_error = false,
-			format_on_save = function(bufnr)
-				-- Disable "format_on_save lsp_fallback" for languages that don't
-				-- have a well standardized coding style. You can add additional
-				-- languages here or re-enable it for the disabled ones.
-				local disable_filetypes = { c = true, cpp = true, php = true, lua = true }
-				local lsp_format_opt
-				if disable_filetypes[vim.bo[bufnr].filetype] then
-					lsp_format_opt = "never"
-				else
-					lsp_format_opt = "fallback"
-				end
-				return {
-					timeout_ms = 500,
-					lsp_format = lsp_format_opt,
-				}
-			end,
 			formatters_by_ft = {
 				lua = { "stylua" },
 				-- Conform can also run multiple formatters sequentially
@@ -59,12 +65,19 @@ return {
 					"prettier",
 					stop_after_first = true,
 				},
-				-- php = {
-				-- 	"pretty-php",
-				-- 	"pint",
-				-- 	"php-cs-fixer",
-				-- 	stop_after_first = true,
-				-- },
+				sql = {
+					"sqlfmt",
+				},
+				blade = {
+					"blade-formatter",
+                    "rustywind",
+				},
+				php = {
+					"pretty-php",
+					"pint",
+					"php-cs-fixer",
+					stop_after_first = true,
+				},
 			},
 			formatters = {
 				prettierd = {
