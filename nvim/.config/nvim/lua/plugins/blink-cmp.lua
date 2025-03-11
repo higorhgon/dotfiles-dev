@@ -90,7 +90,6 @@ return {
                     return { 'buffer' }
                 else
                     return {
-                        'avante',
                         'lsp',
                         'path',
                         'snippets',
