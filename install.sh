@@ -8,7 +8,7 @@ sudo -E bash nodesource_setup.sh
 
 # Instala dependências
 sudo apt update
-sudo apt install -y build-essential cmake libreadline-dev stow nodejs gettext ripgrep tree-sitter-cli
+sudo apt install -y build-essential cmake libreadline-dev stow nodejs gettext ripgrep tree-sitter-cli golang
 
 cd ~
 
@@ -30,3 +30,6 @@ sudo make install
 cd ~
 
 rm -rf neovim/ lua-5.1.5/ lua-5.1.5.tar.gz nodesource_setup.sh
+
+# Instala command line do Tree-sitter para buildar o parser de Blade.php
+npm install -g tree-sitter-cli
