@@ -1,4 +1,29 @@
 return {
+    {
+        "numToStr/Comment.nvim",
+        opts = {
+            -- add any options here
+        },
+    },
+    {
+        "folke/persistence.nvim",
+        event = "BufReadPre", -- this will only start session saving when an actual file was opened
+        opts = {
+            -- add any custom options here
+        },
+        keys = {
+            { "<leader>qs", ":lua require('persistence').load()<CR>",                desc = "Restore Session" },
+            { "<leader>qS", ":lua require('persistence').select()<CR>",              desc = "Select Session" },
+            { "<leader>ql", ":lua require('persistence').load({ last = true })<CR>", desc = "Restore Last Session" },
+            { "<leader>qd", ":lua require('persistence').stop()<CR>",                desc = "Don't Save Current Session" },
+        },
+    },
+    -- {
+    --     "mbbill/undotree",
+    --     keys = {
+    --         { "<leader>uU", ":UndotreeToggle<CR>:UndotreeFocus<CR>", desc = "Toggle Undotree" },
+    --     },
+    -- },
 	{
 		-- Useful plugin to show you pending keybinds.
 		"folke/which-key.nvim",
@@ -44,19 +69,18 @@ return {
 
 			-- Document existing key chains
 			spec = {
+				{ "<leader>a", group = "[A]vante", mode = { "n" } },
 				{ "<leader>c", group = "[C]ode", mode = { "n", "x" } },
-				{ "<leader>cc", group = "[C]opilot[C]hat", mode = { "n" } },
 				{ "<leader>d", group = "[D]ocument" },
-				{ "<leader>df", group = "[D]ocument [F]ormat" },
-				{ "<leader>dc", group = "[D]ocument [C]lipboard" },
-				{ "<leader>r", group = "[R]ename" },
+				{ "<leader>C", group = "[C]lipboard" },
 				{ "<leader>f", group = "[F]ind" },
-				{ "<leader>fG", group = "[F]ind [G]it" },
-				{ "<leader>w", group = "[W]orkspace" },
-				{ "<leader>u", group = "[U]Toggle" },
+				{ "<leader>F", group = "[F]ormat" },
 				{ "<leader>g", group = "[G]it", mode = { "n", "v" } },
-				{ "<BS>", desc = "Decrement Selection", mode = "x" },
-				{ "<c-space>", desc = "Increment Selection", mode = { "x", "n" } },
+				{ "<leader>m", group = "[M]ulti Cursor" },
+				{ "<leader>q", group = "[Q]Session", mode = { "n", "x" } },
+				{ "<leader>r", group = "[R]ename" },
+				{ "<leader>s", group = "[S]earch" },
+				{ "<leader>u", group = "[U]Toggle" },
 			},
 		},
 		keys = {

@@ -7,9 +7,19 @@ return {
 			local lint = require("lint")
 			lint.linters_by_ft = {
 				markdown = { "markdownlint" },
+                dockerfile = { "hadolint" },
 				-- php = { 'phpcs' },
 				-- php = { "tlint" },
 			}
+
+            -- local phpcs = require('lint').linters.phpcs
+            -- phpcs.args = {
+            --     '-q',
+            --     -- <- Add a new parameter here
+            --     "--standard=PSR12",
+            --     '--report=json',
+            --     '-'
+            -- }
 
 			-- To allow other plugins to add linters to require('lint').linters_by_ft,
 			-- instead set linters_by_ft like this:
@@ -46,7 +56,7 @@ return {
 			-- Create autocommand which carries out the actual linting
 			-- on the specified events.
 			local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
-			vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+			vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost", "InsertLeave" }, {
 				group = lint_augroup,
 				callback = function()
 					-- Only run the linter in buffers that you can modify in order to
