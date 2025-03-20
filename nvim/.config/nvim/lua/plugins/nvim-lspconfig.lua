@@ -32,7 +32,7 @@ return {
                 "html",
                 "intelephense",
                 "lua_ls",
-                "phpactor",
+                -- "phpactor",
                 "sqls",
                 "stimulus_ls",
                 "tailwindcss",
@@ -57,7 +57,11 @@ return {
             servers = {
                 lua_ls = {},
                 intelephense = {
-                    filetypes = { "php", "blade", "php_only" },
+                    filetypes = {
+                        "php",
+                        "blade",
+                        "php_only"
+                    },
                     settings = {
                         intelephense = {
                             environment = {
@@ -83,6 +87,16 @@ return {
                 cssls = {},
                 biome = {},
                 tailwindcss = {
+                    filetypes = { -- Lista de filetypes onde o Tailwind CSS deve ativar
+                        "html",
+                        "blade",
+                        "css",
+                        "javascript",
+                        "javascriptreact",
+                        "typescript",
+                        "typescriptreact",
+                        -- Remova "php" se estiver presente
+                    },
                     settings = {
                         tailwindCSS = {
                             experimental = {

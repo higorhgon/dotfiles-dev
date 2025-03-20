@@ -29,7 +29,7 @@ return {
             "c",
             "css",
             "diff",
-            "html",
+            -- "html",
             "javascript",
             "lua",
             "luadoc",
@@ -47,6 +47,9 @@ return {
 		auto_install = true,
 		highlight = {
 			enable = true,
+            additional_vim_regex_highlighting = {
+				"php",
+			}
 		},
 		-- Needed because treesitter highlight turns off autoindent for php files
 		indent = {
