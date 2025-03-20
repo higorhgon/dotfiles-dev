@@ -29,12 +29,12 @@ return {
 		cmd = { "ConformInfo" },
 		keys = {
 			{
-				"<leader>dff",
+				"<leader>Ff",
 				function()
 					require("conform").format({ async = true, lsp_format = "fallback" })
 				end,
 				mode = "",
-				desc = "Document Auto Format (Formatter)",
+				desc = "Format (Formatter)",
 			},
 		},
 		-- optional = true,
@@ -70,11 +70,9 @@ return {
 				},
 				blade = {
 					"blade-formatter",
-                    "rustywind",
+					"rustywind",
 				},
 				php = {
-					"pretty-php",
-					"pint",
 					"php-cs-fixer",
 					stop_after_first = true,
 				},
@@ -90,5 +88,9 @@ return {
 				},
 			},
 		},
+		init = function()
+			-- If you want the formatexpr, here is the place to set it
+			vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+		end,
 	},
 }
