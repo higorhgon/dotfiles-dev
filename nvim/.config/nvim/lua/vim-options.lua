@@ -12,6 +12,16 @@ vim.opt.number = true
 
 -- Clipboard Opts
 vim.opt.clipboard = "unnamedplus"
+vim.g.clipboard = {
+    name = "OSC 52",
+    -- On Linux and Windows use + register, on macOS use * register
+    copy = {
+        ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+    },
+    paste = {
+        ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+    },
+}
 
 -- Folding Opts
 vim.opt.foldenable = true
