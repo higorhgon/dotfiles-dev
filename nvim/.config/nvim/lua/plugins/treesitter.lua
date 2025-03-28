@@ -1,7 +1,10 @@
 return {
 	{
+		"gbprod/php-enhanced-treesitter.nvim",
+	},
+	{
 		"nvim-treesitter/nvim-treesitter-context",
-		after = "nvim-treesitter",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		opts = {
 			enable = true,
 			max_lines = 3,
@@ -11,6 +14,10 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		dependencies = {
+			{
+				"windwp/nvim-ts-autotag",
+				opts = {},
+			},
 			{
 				"JoosepAlviste/nvim-ts-context-commentstring",
 				opts = {
@@ -34,7 +41,7 @@ return {
 				"c",
 				"css",
 				"diff",
-				-- "html",
+				"html",
 				"javascript",
 				"lua",
 				"luadoc",
@@ -54,7 +61,8 @@ return {
 				enable = true,
 				additional_vim_regex_highlighting = {
 					"php",
-				}
+				},
+				-- Verifica se o buffer atual é do tipo php e desabilita o highlight de html, retornando uma table com o valor html
 			},
 			indent = {
 				-- Desabilitado, pois a indentação está sendo feita pelo GuessIndent

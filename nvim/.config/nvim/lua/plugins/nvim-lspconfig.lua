@@ -32,18 +32,11 @@ return {
                 "html",
                 "intelephense",
                 "lua_ls",
-                -- "phpactor",
                 "sqls",
-                "stimulus_ls",
-                -- "tailwindcss",
-                "ts_ls",
+                -- "stimulus_ls",
+                "tailwindcss",
             },
         },
-        -- handlers = {
-        --     function(server_name)
-        --         require("lspconfig")[server_name].setup({})
-        --     end,
-        -- },
         config = function(_, opts)
             require("mason-lspconfig").setup(opts)
         end,
@@ -69,18 +62,11 @@ return {
                         intelephense = {
                             environment = {
                                 includePaths = {
-                                    -- Use Docker container paths if Intelephense runs inside container
-                                    "/home/administrador/docker-lw/html/classes",
+                                    "/var/www/html/classes",
                                 },
                             },
                             files = {
                                 maxSize = 5000000,
-                            },
-                            -- Add workspace settings if needed
-                            workspace = {
-                                -- Add other project roots if needed
-                                -- "/var/www/html/intranet",
-                                -- "/var/www/html/legisweb"
                             },
                         },
                     },

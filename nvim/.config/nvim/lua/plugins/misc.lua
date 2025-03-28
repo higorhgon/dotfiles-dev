@@ -4,16 +4,34 @@ return {
         opts = {},
     },
     {
+        "mg979/vim-visual-multi",
+        init = function()
+            vim.g.VM_set_default_mappings = 0 -- Disable default keybinds
+        end,
+        config = function()
+            -- Delete lingering default keybinds
+            vim.keymap.del("n", "<C-Up>")
+            vim.keymap.del("n", "<C-Down>")
+            vim.keymap.del({ "n", "x" }, "<C-n>")
+
+            -- Normal mode mappings
+            vim.keymap.set("n", "<M-n>", "<Plug>(VM-Find-Under)")
+            vim.keymap.set("n", "<M-Up>", "<Plug>(VM-Add-Cursor-Up)")
+            vim.keymap.set("n", "<M-Down>", "<Plug>(VM-Add-Cursor-Down)")
+
+            -- Visual mode mappings
+            vim.keymap.set("x", "<M-n>", "<Plug>(VM-Find-Under)")
+
+            -- Your custom keymaps
+            vim.keymap.set("n", "<leader>Mc", "<Plug>(VM-Find-Under)", { desc = "Multi-Cursor" })
+            vim.keymap.set("n", "<leader>Ma", "<Plug>(VM-Select-All)", { desc = "Select All Occurrences" })
+        end,
+    },
+    {
         'windwp/nvim-autopairs',
         event = 'InsertEnter',
-        -- Optional dependency
-        dependencies = { 'hrsh7th/nvim-cmp' },
         config = function()
             require('nvim-autopairs').setup {}
-            -- If you want to automatically add `(` after selecting a function or method
-            local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
-            local cmp = require 'cmp'
-            cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
         end,
     },
     {
@@ -95,10 +113,11 @@ return {
                 { "<leader>f", group = "[F]ind" },
                 { "<leader>F", group = "[F]ormat",      mode = { "n", "x" } },
                 { "<leader>g", group = "[G]it",         mode = { "n" } },
+                { "<leader>l", group = "[L]aravel",     mode = { "n" } },
                 { "<leader>M", group = "[M]ulti Cursor" },
                 { "<leader>q", group = "[Q]Session",    mode = { "n" } },
                 { "<leader>r", group = "[R]ename" },
-                { "<leader>s", group = "[S]earch",     mode = { "n", "x" } },
+                { "<leader>s", group = "[S]earch",      mode = { "n", "x" } },
                 { "<leader>u", group = "[U]Toggle" },
             },
         },

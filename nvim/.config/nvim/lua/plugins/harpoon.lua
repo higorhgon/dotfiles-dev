@@ -49,6 +49,7 @@ return {
         end
 
         vim.keymap.set("n", "<C-e>", function() harpoon_snacks() end, { noremap = true, silent = true })
-        vim.keymap.set("n", "<leader>fh", function() harpoon_snacks() end, { noremap = true, silent = true, desc = "Find Harpoon" })
+        vim.keymap.set("n", "<leader>fh", function() harpoon_snacks() end,
+            { noremap = true, silent = true, desc = "Find Harpoon" })
     end,
 }
