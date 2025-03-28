@@ -24,6 +24,7 @@ cd ~
 # Instala neovim
 git clone --recursive https://github.com/neovim/neovim.git
 cd neovim/
+git switch release-0.11
 make CMAKE_BUILD_TYPE=Release
 sudo make install
 
