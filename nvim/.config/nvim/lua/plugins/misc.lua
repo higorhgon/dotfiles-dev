@@ -1,6 +1,11 @@
 return {
+    -- Verifica se a OS env TERM é igual a "xterm-kitty" se não for adiciona o smear-cursor.nvim
+    -- Isso é necessário para que o plugin funcione corretamente no Kitty terminal
     {
         "sphamba/smear-cursor.nvim",
+        cond = function()
+            return vim.env.TERM == "xterm-kitty"
+        end,
         opts = {},
     },
     {
