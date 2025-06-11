@@ -1,5 +1,12 @@
 return {
     {
+        'ricardoramirezr/blade-nav.nvim',
+        dependencies = {         -- totally optional
+            'saghen/blink.cmp',  -- if using blink.cmp
+        },
+        ft = { 'blade', 'php' }, -- optional, improves startup time
+    },
+    {
         'saghen/blink.compat',
         -- use the latest release, via version = '*', if you also use the latest release for blink.cmp
         version = '*',
@@ -10,10 +17,11 @@ return {
     },
     {
         'saghen/blink.cmp',
+        event = { 'InsertEnter', 'VeryLazy' },
+        lazy = true,
         -- optional: provides snippets for the snippet source
         dependencies = {
             'rafamadriz/friendly-snippets',
-            "ricardoramirezr/blade-nav.nvim",
             {
                 'L3MON4D3/LuaSnip',
                 version = 'v2.*',
@@ -53,13 +61,31 @@ return {
                 -- 'default' for mappings similar to built-in completion
                 -- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys to navigate)
                 -- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
-                preset = 'default',
+                preset = 'none',
 
-                ['<Up>'] = { 'select_prev', 'fallback' },
-                ['<Down>'] = { 'select_next', 'fallback' },
                 ['<C-Space>'] = {
                     function(cmp) cmp.show({ providers = { 'snippets' } }) end
                 },
+
+                -- ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
+                ['<C-e>'] = { 'hide' },
+                ['<C-y>'] = { 'select_and_accept' },
+
+                ['<Up>'] = { 'select_prev', 'fallback' },
+                ['<Down>'] = { 'select_next', 'fallback' },
+                ['<C-p>'] = { 'select_prev', 'fallback_to_mappings' },
+                ['<C-n>'] = { 'select_next', 'fallback_to_mappings' },
+
+                ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
+                ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
+
+                -- ['<Tab>'] = { 'snippet_forward', 'fallback' },
+                -- ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
+                ['<C-h>'] = { 'snippet_backward', 'fallback' },
+                ['<C-l>'] = { 'snippet_forward', 'fallback' },
+
+                ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
+
 
                 ['<A-1>'] = { function(cmp) cmp.accept({ index = 1 }) end },
                 ['<A-2>'] = { function(cmp) cmp.accept({ index = 2 }) end },
@@ -133,13 +159,13 @@ return {
                         'path',
                         'snippets',
                         'buffer',
-                        'bladenav'
+                        'blade-nav'
                     },
                 },
                 providers = {
-                    bladenav = {
-                        name = "blade-nav",
-                        module = "blink.compat.source",
+                    ['blade-nav'] = {
+                        name = "Blade-nav",
+                        module = "blade-nav.blink",
                         score_offset = -3,
                         opts = {
                             close_tag_on_complete = true,
@@ -177,6 +203,13 @@ return {
                         --     },
                         -- },
                     },
+                    cmdline = {
+                        min_keyword_length = function(ctx)
+                            -- when typing a command, only show when the keyword is 3 characters or longer
+                            if ctx.mode == 'cmdline' and string.find(ctx.line, ' ') == nil then return 3 end
+                            return 0
+                        end
+                    }
                 }
             },
 
@@ -191,6 +224,14 @@ return {
                     end
                     return {}
                 end,
+                completion = {
+                    -- menu = {
+                    --     auto_show = true
+                    -- },
+                    ghost_text = {
+                        enabled = true,
+                    }
+                },
             },
 
             snippets = {
@@ -223,10 +264,26 @@ return {
                         components = {
                             kind_icon = {
                                 ellipsis = false,
-                                text = function(ctx) return ctx.kind_icon .. ctx.icon_gap end,
-                                -- highlight = function(ctx)
-                                --     return require('blink.cmp.completion.windows.render.tailwind').get_hl(ctx) or 'BlinkCmpKind' .. ctx.kind
-                                -- end,
+                                -- text = function(ctx) return ctx.kind_icon .. ctx.icon_gap end,
+                                text = function(ctx)
+                                    local icon = ctx.kind_icon
+
+                                    if ctx.source_name == 'Blade-nav' then
+                                        icon = ''
+                                    end
+
+                                    return ' ' .. icon .. ctx.icon_gap .. ' '
+                                end,
+                                -- If you do not want the custom highlight color you can delete this
+                                highlight = function(ctx)
+                                    local hl = 'BlinkCmpKind' .. ctx.kind
+
+                                    if ctx.source_name == 'Blade-nav' then
+                                        hl = 'BlinkCmpKindBladeNav'
+                                    end
+
+                                    return hl
+                                end,
                             },
                             item_idx = {
                                 text = function(ctx)
@@ -262,4 +319,3 @@ return {
         }
     },
 }
-
