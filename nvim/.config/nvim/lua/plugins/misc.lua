@@ -1,10 +1,10 @@
 return {
-    -- Verifica se a OS env TERM é igual a "xterm-kitty" se não for adiciona o smear-cursor.nvim
-    -- Isso é necessário para que o plugin funcione corretamente no Kitty terminal
     {
         "sphamba/smear-cursor.nvim",
         cond = function()
-            return vim.env.TERM == "xterm-kitty"
+            -- Verifica se a OS env TERM é diferente de "xterm-kitty" para não adicionar o smear-cursor.nvim
+            -- Isso é necessário para que o plugin não seja carregado no terminal Kitty.
+            return os.getenv("TERM") ~= "xterm-kitty"
         end,
         opts = {},
     },
