@@ -1,5 +1,9 @@
 return {
     {
+        "sphamba/smear-cursor.nvim",
+        opts = {},
+    },
+    {
         "arnamak/stay-centered.nvim",
         opts = {},
     },
