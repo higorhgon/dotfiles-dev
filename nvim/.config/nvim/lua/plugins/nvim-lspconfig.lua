@@ -27,14 +27,13 @@ return {
         "williamboman/mason-lspconfig.nvim",
         opts = {
             ensure_installed = {
-                "biome",
                 "cssls",
                 "html",
                 "intelephense",
                 "lua_ls",
                 "sqls",
-                -- "stimulus_ls",
                 "tailwindcss",
+                "ts_ls",
             },
         },
         config = function(_, opts)
@@ -147,4 +146,24 @@ return {
         -- end,
         event = { "BufReadPre", "BufNewFile" },
     },
+    {
+        "jay-babu/mason-null-ls.nvim",
+        event = { "BufReadPre", "BufNewFile" },
+        dependencies = {
+            "williamboman/mason.nvim",
+            "nvimtools/none-ls.nvim",
+        },
+        opts = {
+            ensure_installed = {
+                "blade-formatter",
+                "nixfmt",
+                "phpcs",
+                "php-cs-fixer",
+                "rustywind",
+                "shfmt",
+                "sleek",
+                "stylua",
+            },
+        },
+    }
 }
